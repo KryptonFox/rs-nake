@@ -1,0 +1,9 @@
+[package]
+name = "rs-nake"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["KryptonFox"]
+
+[dependencies]
+macroquad = "0.4.13"
