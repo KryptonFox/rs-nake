@@ -1,6 +1,15 @@
-use crate::constants::{FIELD_HEIGHT, FIELD_WIDTH};
-use crate::Direction;
+use crate::constants::{FIELD_HEIGHT, FIELD_WIDTH, FIELD_X_OFFSET, FIELD_Y_OFFSET, TILE_SIZE};
+use macroquad::color::{DARKGREEN, GREEN};
 use macroquad::math::Vec2;
+use macroquad::prelude::draw_rectangle;
+
+#[derive(PartialEq, Clone)]
+pub enum Direction {
+    Left,
+    Right,
+    Up,
+    Down,
+}
 
 pub struct Snake {
     pub head: Vec2,
@@ -68,5 +77,24 @@ impl Snake {
 
     pub fn feed(&mut self) {
         self.body.push(self.body.last().unwrap().clone());
+    }
+
+    pub fn render(&self) {
+        draw_rectangle(
+            FIELD_X_OFFSET + &self.head.x * TILE_SIZE,
+            FIELD_Y_OFFSET + &self.head.y * TILE_SIZE,
+            TILE_SIZE,
+            TILE_SIZE,
+            DARKGREEN,
+        );
+        for block in self.body.iter() {
+            draw_rectangle(
+                FIELD_X_OFFSET + &block.x * TILE_SIZE,
+                FIELD_Y_OFFSET + &block.y * TILE_SIZE,
+                TILE_SIZE,
+                TILE_SIZE,
+                GREEN,
+            );
+        }
     }
 }
